@@ -1,4 +1,4 @@
-const { addDetails } = require("../models/signUp.models");
+const { addDetails } = require("../../models/signUp.models");
 
 function signUp(req, res){
 	const signUpDetails = req.body;

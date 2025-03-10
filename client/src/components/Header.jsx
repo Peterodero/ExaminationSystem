@@ -18,7 +18,6 @@ export default function Header(){
 			</div>
 			
 			<div className="headerDiv">
-				<button>About us</button>
 				<button onClick={()=>navigateHandler('/signIn')}>Sign In</button>
 				<button onClick={()=>navigateHandler('/signUp')}>Sign Up</button>
 			</div>

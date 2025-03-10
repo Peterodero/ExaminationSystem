@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-export default function useInput(defaultValue){
+export default function useInput(defaultValue, edit){
 	
 	const [formData, setFormData] = useState(defaultValue);
 	
-	const [didEdit,setDidEdit] = useState(false)
+	const [didEdit,setDidEdit] = useState(edit)
 	
 	const setContent = defaultValue.setContent
 
@@ -19,11 +19,19 @@ export default function useInput(defaultValue){
 			}
 		})
 		
-		setDidEdit(true);
+		// setDidEdit(true);
+	}
+
+	function handleBlur(identifier){
+		setDidEdit(prevEdit => ({
+			...prevEdit,
+			[identifier]:true
+		}))
 	}
 	
 	return{
 		handleChange,
+		handleBlur,
 		formData,
 		didEdit
 	}

@@ -158,3 +158,11 @@
   height: 850px;
   margin-right: 30px;
 }
+
+.questions{
+  list-style: none;
+}
+.question-container{
+  text-align: start;
+}
+

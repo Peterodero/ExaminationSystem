@@ -15,12 +15,17 @@ export default function SignUp(){
 	
 	const navigate = useNavigate();
 	
-	const {handleChange: handleSignUpChange, formData, didEdit} = useInput({
+	const {handleChange: handleSignUpChange, handleBlur:handleSignUpBlur, formData, didEdit} = useInput({
 		email:"",
 		firstPassword:"",
 		secondPassword:"",
 		setContent
 		
+	},
+	{
+		email: false,
+		firstPassword: false,
+		secondPassword:false
 	});
 	
 	const {mutate} = useMutation({
@@ -28,15 +33,16 @@ export default function SignUp(){
 	})
 	
 	
-	const emailIsInvalid = didEdit && !isEmail(formData.email) && isNotEmpty(formData.email)
- 	const passwordIsInvalid = didEdit &&
-	 !hasMinLength(formData.firstPassword,6) || 
-	 !hasMinLength(formData.secondPassword, 6) 
+	const emailIsInvalid = didEdit.email && !isEmail(formData.email)
+ 	const firstPasswordIsInvalid = didEdit.firstPassword && !hasMinLength(formData.firstPassword,6) 
+
+	const secondPasswordIsInvalid = didEdit.secondPassword && !hasMinLength(formData.secondPassword,6) 
+
 
 	 let passWordNotMatch =  !isEqualsToOtherValue(formData.firstPassword, formData.secondPassword);
 
 	 function handleSubmit(event){
-		event.preventDefault();
+		event.preventDefault(); 
 		
 		if(passWordNotMatch){
 			setContent("Passwords do not match")
@@ -65,8 +71,10 @@ export default function SignUp(){
 					id="email"
 					label="Enter Username:"
 					onChange={handleSignUpChange}
+					onBlur={() => handleSignUpBlur('email')}
 					value={formData.email}
 					error={emailIsInvalid && "Please input the correct email address"}
+				
 				 />
 				<FormInput
 					type="password" 
@@ -76,8 +84,10 @@ export default function SignUp(){
 					id="firstPassword"
 					label="Enter Password:"
 					onChange={handleSignUpChange}
+					onBlur={() => handleSignUpBlur('firstPassword')}
 					value={formData.firstPassword}
-					error={passwordIsInvalid && "Please input the correct password"}
+					error={firstPasswordIsInvalid && "Please input the correct password"}
+					
 				/>
 					
 				<FormInput
@@ -88,8 +98,9 @@ export default function SignUp(){
 					id="secondPassword"
 					label="Confirm Password:"
 					onChange={handleSignUpChange}
+					onBlur={() => handleSignUpBlur('secondPassword')}
 					value={formData.secondPassword}
-					error={passwordIsInvalid && "Please input the correct password"}
+					error={secondPasswordIsInvalid && "Please input the correct password"}
 					/>	
 				
 				<p className="inputError">{content}</p>

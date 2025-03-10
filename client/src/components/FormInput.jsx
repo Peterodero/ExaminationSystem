@@ -1,4 +1,5 @@
-export default function FormInput({label,id,type,name,placeholder,className,onChange, value, error}){
+// eslint-disable-next-line react/prop-types
+export default function FormInput({label,id,type,name,placeholder,className,onChange,onBlur, value, error}){
 	return(
 	
 		<div>
@@ -10,6 +11,7 @@ export default function FormInput({label,id,type,name,placeholder,className,onCh
 				type={type}
 				name={name} 
 				onChange={onChange}
+				onBlur={onBlur}
 				value={value}
 				required/>
 				
